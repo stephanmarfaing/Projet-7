@@ -21,13 +21,19 @@ def lire_actions(chemin):
 
     Le bénéfice du CSV est un pourcentage du coût : profit = coût * pourcentage / 100.
     """
-    actions = []
+    actions = []  # Création d'une liste d'actions
 
-    with open(chemin, newline="", encoding="cp1252") as fichier:
-        lecteur = csv.reader(fichier)
-        next(lecteur)  # ignore l'en-tête
+    try:
+        with open(chemin, newline="", encoding="utf-8-sig") as fichier:  # Essaie l'UTF-8
+            lignes = fichier.read().splitlines()
+    except UnicodeDecodeError:
+        with open(chemin, newline="", encoding="cp1252") as fichier:  # Sinon, format Windows (Excel)
+            lignes = fichier.read().splitlines()
 
-        for ligne in lecteur:
+    lecteur = csv.reader(lignes)  # Crée un lecteur permettant de parcourir le CSV ligne par ligne
+    next(lecteur)  # ignore l'en-tête
+
+for ligne in lecteur:
             if len(ligne) < 3:  # Si moins de 3 colonnes, on traite la suivante
                 continue
 
