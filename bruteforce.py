@@ -33,7 +33,7 @@ def lire_actions(chemin):
     lecteur = csv.reader(lignes)  # Crée un lecteur permettant de parcourir le CSV ligne par ligne
     next(lecteur)  # ignore l'en-tête
 
-for ligne in lecteur:
+    for ligne in lecteur:
             if len(ligne) < 3:  # Si moins de 3 colonnes, on traite la suivante
                 continue
 
